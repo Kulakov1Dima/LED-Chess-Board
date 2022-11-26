@@ -1,18 +1,9 @@
 #include "matrix.h"
 
-matrix_array init_empty_matrix() {
-    matrix_enum* values = calloc(WIDTH_MATRIX * HEIGHT_MATRIX, sizeof(matrix_enum));
-    matrix_enum** rows = malloc(WIDTH_MATRIX * sizeof(matrix_enum*));
-
-    for (int i=0; i<WIDTH_MATRIX; ++i)
-        rows[i] = values + i * HEIGHT_MATRIX;
-
-    return rows;
-}
-
-matrix_array init_matrix() {
+void init_matrix(enum matrix_enum** matrix) {
     //matrix_enum matrix[WIDTH_MATRIX][HEIGHT_MATRIX];
-    matrix_array matrix = init_empty_matrix();
+    //matrix_array_ptr matrix = init_empty_matrix();
+    matrix[0][0] = 2;
 
     // Вставляем все значение для черных фигур
     // Клетка должна быть **ЧЁТНОЙ**
@@ -25,6 +16,8 @@ matrix_array init_matrix() {
         }
     }
 
+    enum matrix_enum ll = matrix[0][6];
+
     // Вставляем все значение для белых фигур
     // Клетка должна быть **НЕЧЁТНОЙ**
     for (size_t h = 0; h < 3; h++) {
@@ -36,11 +29,4 @@ matrix_array init_matrix() {
             }
         }
     }
-
-    return matrix;
-}
-
-void delete_matrix(matrix_array matrix) {
-    free(*matrix);
-    free(matrix);
 }

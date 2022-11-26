@@ -3,4 +3,5 @@ project(LED_Chess_Board C)
 
 set(CMAKE_C_STANDARD 11)
 
+add_compile_options(-pedantic -Wall -Wextra)
 add_executable(LED_Chess_Board main.c matrix.c matrix.h)

@@ -4,10 +4,10 @@
 #include <malloc.h>
 
 //! Высота матрицы
-#define HEIGHT_MATRIX 8
+static const size_t HEIGHT_MATRIX = 8;
 
 //! Ширина матрицы
-#define WIDTH_MATRIX 8
+static const size_t WIDTH_MATRIX = 8;
 
 enum matrix_enum {
     empty = 1,
@@ -16,15 +16,6 @@ enum matrix_enum {
     lady = 4
 };
 
-typedef enum matrix_enum matrix_enum;
-
-//! Матрица для шашек
-typedef enum matrix_enum** matrix_array;
-
 //! Создать матрицу для шашек.
 //! \return Матрица для шашек
-matrix_array init_matrix();
-
-matrix_array init_empty_matrix();
-
-void delete_matrix(matrix_array matrix);
+void init_matrix(enum matrix_enum** matrix);
