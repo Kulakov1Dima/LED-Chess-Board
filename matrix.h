@@ -2,6 +2,7 @@
 
 #include <bits/stdint-intn.h>
 #include <malloc.h>
+#include <stdbool.h>
 
 //! Высота матрицы
 static const size_t HEIGHT_MATRIX = 8;
@@ -10,10 +11,10 @@ static const size_t HEIGHT_MATRIX = 8;
 static const size_t WIDTH_MATRIX = 8;
 
 enum matrix_enum {
-    empty = 1,
-    black = 2,
-    white = 3,
-    lady = 4
+    empty = 0,
+    black = 1,
+    white = 2,
+    lady = 3
 };
 
 //! Создать матрицу для шашек.

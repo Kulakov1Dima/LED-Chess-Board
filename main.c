@@ -6,6 +6,6 @@ int main() {
     init_matrix(matrix_chess);
 
 
-    printf("Hello, World! %i\n", matrix_chess[0][0]);
+    printf("Hello, World! %i\n", matrix_chess[0][2]);
     return 0;
 }
