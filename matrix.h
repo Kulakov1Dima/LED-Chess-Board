@@ -18,4 +18,4 @@ enum matrix_enum {
 
 //! Создать матрицу для шашек.
 //! \return Матрица для шашек
-void init_matrix(enum matrix_enum** matrix);
+void init_matrix(enum matrix_enum matrix[WIDTH_MATRIX][HEIGHT_MATRIX]);
