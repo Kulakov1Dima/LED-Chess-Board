@@ -7,6 +7,10 @@
 #define APPSK  "12345678"
 #endif
 
+IPAddress local_ip(192,168,0,1);
+IPAddress gateway(192,168,2,1);
+IPAddress subnet(255,255,255,0);
+
 const char *APssid = APSSID;//Название точки доступа(выше)
 const char *APpassword = APPSK;//Пароль от точки доступа(выше)
 int n = 0;//смотреть в void setup()
@@ -38,37 +42,50 @@ void response(){
   htmlRes += HtmlHtmlClose; 
   server.send(200, "text/html", htmlRes);
 }
- 
-void setup() {
-    delay(1000); 
-    //Пишите все, что надо для получения ssid и password
-    //ssid = ;
-    //password = ;
-    Serial.begin(115200); 
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-      delay(1000);
-      Serial.println("Connecting..");
-      n++;
-      if(n==10){
-        break;//Если больше 10 секунд не может подключиться
-      }
-    }
+
+void connectWiFi()  {
+  Serial.println("Entering WiFi connection stage");
+
+  WiFi.begin(ssid, password); 
+  Serial.print("Connecting...");
+  while( WiFi.status() != WL_CONNECTED )  {
+    Serial.print(".");
+    delay(1000);
+    n++;
     if(n==10){
-      WiFi.softAP(APssid, APpassword); 
-      IPAddress apip = WiFi.softAPIP();  
-      Serial.println(apip);  //К этому айпи подключаемся(у меня он всегда 192.168.4.1)
-      server.on("/", response); //Форма для заполнения 
-      server.on("/get", get); //Отправка информации
-      server.begin();    
+      connectAP;//Если больше 10 секунд не может подключиться
     }
-    else{
-      Serial.println(WiFi.localIP());
-    }
+  }
+  Serial.println(WiFi.localIP());
+}
+
+void connectAP(){
+  WiFi.softAP(APssid, APpassword); 
+  apip = WiFi.softAPIP();  
+  WiFi.softAPConfig(local_ip, gateway, subnet);
+  server.on("/", response); //Форма для заполнения 
+  server.on("/get", get); //Отправка информации
+  server.begin();    
+}
+
+void setup() {
+  delay(1000); 
+  //Пишите все, что надо для получения ssid и password
+  //ssid = ;
+  //password = ;
+  Serial.begin(115200); 
+  connectWiFi;
 }
  
+void toLoop(){
+
+}
+
 void loop() {
   if(n==10){
     server.handleClient();//Чтобы сервер работал
+  }
+  else {
+    toLoop;
   }
 }
