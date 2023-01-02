@@ -8,14 +8,26 @@
 /*..............................................................LOCAL................................................................*/
 extern const char htmlFile[] PROGMEM;
 
-#define VERSION                                                           2022012
+#define PRINT_VERSION                                                      Serial.println("\n2022012")
 
 #ifndef APSSID
-#define APSSID                                                            "SHACMATIE"
-#define APPSK                                                             "12345678"
+
+#define APSSID                                                             "SHACMATIE"
+#define APPSK                                                              "12345678"
+
+#define APSSID1                                                            "TP-Link_EFF4"
+#define APPSK1                                                             "13197421"
+
+#define APSSID2                                                            ""
+#define APPSK2                                                             ""
+
+//Нужно реализовать подключение к нескольким сетям не подключился к одной за timeout  подключается к следеующей
+
+#define TIMEOUT                                                            3000
+#define INDICATOR_OF_NETWORK_STATUS                                        2
 #endif
 
-#define matrixLed                                                         13
+#define matrixLed                                                          13
 
 /*............................................Update firmware into wifi configuration...............................................*/
 
@@ -26,9 +38,6 @@ extern const char htmlFile[] PROGMEM;
 #define SERVERPORT                                                        80
 
 /*.............................................................sd card...............................................................*/
-
-
-
 
 
 /*..........................................................time settings............................................................*/
