@@ -1,5 +1,5 @@
 class CCD {
 public:
-  bool checkCDcard();
+  bool initializingCDcard(uint8_t pin);
 private:
 };

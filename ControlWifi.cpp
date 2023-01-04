@@ -7,7 +7,7 @@ CWIFI::CWIFI(char* network_name, char* network_password) {                //ко
   _network_password = network_password;                                   //пароль сети
 }
 
-bool CWIFI::connectWiFi(int timeout, int led) {
+bool CWIFI::connectWiFi(int timeout, uint8_t led) {
   WiFi.begin(_network_name, _network_password);
   analogWrite(led, 0);
   // Функция подключения к wifi, пытается подключиться к сети timeout времени, при неуспешном подключении возвращает false иначе true

@@ -1,22 +1,32 @@
 #include "Configuration.h"
 #include "ControlWifi.h"
 #include "ControlCD.h"
+#include "Backlight.h"
 
 /*
 Эта ветка показывает структуру проекта!
 */
 
-  void setup() {
-  Serial.begin(9600);
-  PRINT_VERSION;
-  if(CCD().checkCDcard()) {
-    Serial.println("sd card is connected");
-  }
+void setup() {
+  initilization();
   connectedWifi();
-  Serial.println(htmlFile);  // пример как достать содержимое файла html
+  Backlight().initBacklight();
 }
 
 void loop() {
+}
+
+void initilization() {
+
+  Serial.begin(9600);
+  PRINT_VERSION;
+
+  if (CCD().initializingCDcard(CDPIN)) {
+    Serial.println("sd card is connected");
+  } else {
+    Serial.println("sd card isn't connected");
+  }
+  Serial.println(htmlFile);  // пример как достать содержимое файла html
 }
 
 void connectedWifi() {

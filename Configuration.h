@@ -23,11 +23,11 @@ extern const char htmlFile[] PROGMEM;
 
 //Нужно реализовать подключение к нескольким сетям не подключился к одной за timeout  подключается к следеующей
 
-#define TIMEOUT                                                            3000
+#define TIMEOUT                                                            2000
 #define INDICATOR_OF_NETWORK_STATUS                                        2
 #endif
 
-#define matrixLed                                                          13
+#define matrixLed                                                          5                              
 
 /*............................................Update firmware into wifi configuration...............................................*/
 
@@ -39,11 +39,10 @@ extern const char htmlFile[] PROGMEM;
 
 /*.............................................................sd card...............................................................*/
 
-
+#define CDPIN                                                             4
 /*..........................................................time settings............................................................*/
 
 
 //ну и так далее...
 
 #endif
-
