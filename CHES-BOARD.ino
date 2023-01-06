@@ -16,10 +16,6 @@ String password;//Объявляем переменную пароля WiFi-се
 ESP8266WebServer server(80);
 
 //Наш сайт
-const String HtmlHtml = "<html><head><meta charset=\"utf-8\">"
-"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /></head>";
-const String HtmlButtons = "<form method=\"get\" action=\"/get\"><ul><li><input type=\"text\" name=\"ssid\" placeholder=\"Введите название WiFi-сети\"></li><li><input type=\"text\" name=\"password\" placeholder=\"Введите пароль\"></li><li><input type=\"submit\" value=\"Отправить\"></li></form>";
-const String HtmlHtmlClose = "</html>";
 
 //Класс для приема и отправки наших данных
 void get() {
@@ -33,10 +29,7 @@ void get() {
 
 //Форма для заполнения
 void response(){
-  String htmlRes = HtmlHtml;
-  htmlRes += HtmlButtons;
-  htmlRes += HtmlHtmlClose; 
-  server.send(200, "text/html", htmlRes);
+  server.send(200, "text/html", PROGMEM[]);
 }
 
 void connectWiFi()  {
