@@ -1,11 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-
-#ifndef APSSID
-#define APSSID "SHACMATIE"
-#define APPSK  "12345678"
-#endif
+#include "Configuration.h"
 
 IPAddress local_ip(192,168,0,1);
 IPAddress gateway(192,168,2,1);
@@ -44,8 +40,7 @@ void response(){
 }
 
 void connectWiFi()  {
-  Serial.println("Entering WiFi connection stage");
-
+  Serial.println("Entering WiFi connection stage");   
   WiFi.begin(ssid, password); 
   Serial.print("Connecting...");
   while( WiFi.status() != WL_CONNECTED )  {
