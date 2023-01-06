@@ -8,6 +8,7 @@
 */
 
 void setup() {
+  print_version();
   initilization();
   connectedWifi();
   Backlight().initBacklight();
@@ -16,16 +17,15 @@ void setup() {
 void loop() {
 }
 
+void print_version(){
+  Serial.begin(COMPORTSPEED);
+  Serial.println();
+  Serial.println(PRINT_VERSION);
+}
+
 void initilization() {
-
-  Serial.begin(9600);
-  PRINT_VERSION;
-
-  if (CCD().initializingCDcard(CDPIN)) {
-    Serial.println("sd card is connected");
-  } else {
-    Serial.println("sd card isn't connected");
-  }
+  CCD cdcard("config.txt");
+  cdcard.initializingCDcard(CDPIN);
   Serial.println(htmlFile);  // пример как достать содержимое файла html
 }
 
