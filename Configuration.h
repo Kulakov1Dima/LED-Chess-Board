@@ -7,8 +7,8 @@
 
 /*..............................................................LOCAL................................................................*/
 extern const char htmlFile[] PROGMEM;
-
-#define PRINT_VERSION                                                      Serial.println("\n2022012")
+#define COMPORTSPEED                                                       9600
+#define PRINT_VERSION                                                      "2022012"
 
 #ifndef APSSID
 

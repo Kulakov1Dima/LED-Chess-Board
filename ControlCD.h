@@ -1,5 +1,8 @@
 class CCD {
 public:
-  bool initializingCDcard(uint8_t pin);
+  CCD(char* name);
+  void initializingCDcard(uint8_t pin);
+  void CDConfig();
 private:
+  char* nameFile;
 };
