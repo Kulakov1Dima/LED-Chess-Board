@@ -6,10 +6,8 @@
 CCD::CCD(char* name) {  //конструктор класса
   nameFile = name;
 }
-
-  File myFile;
-
-
+File myFile;
+  
 void CCD::initializingCDcard(uint8_t pin) {  //функция проверки cd карты на её наличие
   bool statusCD = SD.begin(pin);
   Serial.println("connecting an SD card: " + String(statusCD));
