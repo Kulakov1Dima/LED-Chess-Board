@@ -26,6 +26,7 @@ void print_version(){
 void initilization() {
   CCD cdcard("config.txt");
   cdcard.initializingCDcard(CDPIN);
+  cdcard.CDConfig();
   Serial.println(htmlFile);  // пример как достать содержимое файла html
 }
 
