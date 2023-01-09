@@ -8,30 +8,29 @@
 */
 
 void setup() {
-  print_version();
-  initilization();
-  connectedWifi();
-  Backlight().initBacklight();
+  initilization();   // Подготовка к запуску
+  connectedWifi();   // Подключение к wifi
+  updateFirmware();  // Запуск прошивки по wifi
 }
 
 void loop() {
-}
-
-void print_version(){
-  Serial.begin(COMPORTSPEED);
-  Serial.println();
-  Serial.println(PRINT_VERSION);
+  updateServer();
 }
 
 void initilization() {
-  CCD cdcard("config.txt");
+  CCD cdcard(CONFFILE);
   cdcard.initializingCDcard(CDPIN);
-  cdcard.CDConfig();
-  Serial.println(htmlFile);  // пример как достать содержимое файла html
+  Backlight().initBacklight();
 }
 
 void connectedWifi() {
-  CWIFI controlWifi(APSSID1, APPSK1);  // создаём экземпляр класса отправляя имя и пароль в конструктор
-  controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS);
-  //функция подключения к нескольким сетям выполняет попытки подключения к APSSID1, APSSID2, APSSID
+  CWIFI controlWifi(APSSID, APPSK);  // Пробуем подключиться к первой сети
+  if (!controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
+    CWIFI controlWifi(APSSID1, APPSK1);  // Пробуем подключиться ко второй сети
+    if (!controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
+      CWIFI controlWifi(APSSID2, APPSK2);  // Пробуем подключиться к третьей сети
+      controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS);
+    }
+  }
+  //костыль можно оптимизировать(много одинаковых операций)
 }

@@ -1,8 +1,9 @@
+#include <SD.h>
 class CCD {
 public:
-  CCD(char* name);
+  CCD(String name);
   void initializingCDcard(uint8_t pin);
-  void CDConfig();
 private:
-  char* nameFile;
+  void CDConfig(bool* status);
+  String nameFile;
 };

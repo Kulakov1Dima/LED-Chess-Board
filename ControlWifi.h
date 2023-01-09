@@ -1,8 +1,8 @@
 class CWIFI {
 public:
-  CWIFI(char* network_name, char* network_password);
+  CWIFI(String network_name, String network_password);
   bool connectWiFi(int timeout, uint8_t led);
 private:
-  char* _network_name;
-  char* _network_password;
+  String _network_name;
+  String _network_password;
 };

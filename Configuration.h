@@ -7,23 +7,21 @@
 
 /*..............................................................LOCAL................................................................*/
 extern const char htmlFile[] PROGMEM;
-#define COMPORTSPEED                                                       9600
-#define PRINT_VERSION                                                      "2022012"
 
 #ifndef APSSID
 
 #define APSSID                                                             "SHACMATIE"
 #define APPSK                                                              "12345678"
 
-#define APSSID1                                                            "TP-Link_EFF4"
-#define APPSK1                                                             "13197421"
+#define APSSID1                                                            ""
+#define APPSK1                                                             ""
 
-#define APSSID2                                                            ""
-#define APPSK2                                                             ""
+#define APSSID2                                                            "TP-Link_EFF4"
+#define APPSK2                                                             "13197421"
 
 //Нужно реализовать подключение к нескольким сетям не подключился к одной за timeout  подключается к следеующей
 
-#define TIMEOUT                                                            2000
+#define TIMEOUT                                                            5000
 #define INDICATOR_OF_NETWORK_STATUS                                        2
 #endif
 
@@ -40,8 +38,8 @@ extern const char htmlFile[] PROGMEM;
 /*.............................................................sd card...............................................................*/
 
 #define CDPIN                                                             4
+#define CONFFILE                                                          "config.txt"
 /*..........................................................time settings............................................................*/
-
 
 //ну и так далее...
 
