@@ -1,20 +1,16 @@
-#include "Configuration.h"
-#include "ControlWifi.h"
-#include "ControlCD.h"
-#include "Backlight.h"
-
-/*
-Эта ветка показывает структуру проекта!
-*/
+#include "src/configuration.h"
+#include "src/control_wifi.h"
+#include "src/control_cd.h"
+#include "src/backlight.h"
 
 void setup() {
   initilization();   // Подготовка к запуску
-  connectedWifi();   // Подключение к wifi
-  updateFirmware();  // Запуск прошивки по wifi
+  connecting_wifi();   // Подключение к wifi
+  update_firmware();  // Запуск прошивки по wifi
 }
 
 void loop() {
-  updateServer();
+  update_server();
 }
 
 void initilization() {
@@ -23,13 +19,13 @@ void initilization() {
   Backlight().initBacklight();
 }
 
-void connectedWifi() {
-  CWIFI controlWifi(APSSID, APPSK);  // Пробуем подключиться к первой сети
-  if (!controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
-    CWIFI controlWifi(APSSID1, APPSK1);  // Пробуем подключиться ко второй сети
-    if (!controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
-      CWIFI controlWifi(APSSID2, APPSK2);  // Пробуем подключиться к третьей сети
-      controlWifi.connectWiFi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS);
+void connecting_wifi() {
+  CWIFI control_wifi(APSSID, APPSK);  // Пробуем подключиться к первой сети
+  if (!control_wifi.connect_wifi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
+    CWIFI control_wifi(APSSID1, APPSK1);  // Пробуем подключиться ко второй сети
+    if (!control_wifi.connect_wifi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS)) {
+      CWIFI control_wifi(APSSID2, APPSK2);  // Пробуем подключиться к третьей сети
+      control_wifi.connect_wifi(TIMEOUT, INDICATOR_OF_NETWORK_STATUS);
     }
   }
   //костыль можно оптимизировать(много одинаковых операций)
