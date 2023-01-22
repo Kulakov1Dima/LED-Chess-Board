@@ -14,7 +14,7 @@ bool CWIFI::connectWiFi(int timeout, uint8_t led) {
     Serial.print(".");
     delay(1000);
     n++;
-    if(n==timeout/100){
+    if(n==timeout/1000){
       return false;
     }
   }
