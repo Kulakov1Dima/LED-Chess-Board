@@ -1,4 +1,5 @@
 #include <Adafruit_NeoPixel.h>
+#include <ESP_EEPROM.h>
 #include "Configuration.h"
 #include "Play.h"
 
@@ -16,14 +17,20 @@ Play::Play() {
 String checkersMatrix[] = { "A1", "A3", "A5", "A7", "B8", "B6", "B4", "B2",
                             "C1", "C3", "C5", "C7", "D8", "D6", "D4", "D2",
                             "E1", "E3", "E5", "E7", "F8", "F6", "F4", "F2",
-                            "G1", "G3", "G5", "G7", "H8", "H6", "H4", "H2" };
+                            "G1", "G3", "G5", "G7", "H8", "H6", "H4", "H2"
+                          };
 
 uint32_t matrix_color[] = { matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1,
                             matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1,
                             matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1,
-                            matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1 };
+                            matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1
+                          };
+
 
 void Play::start() {
+  EEPROM.begin(32);
+  EEPROM.get(0, matrix_color);
+
   matrix_game.begin();
   matrix_game.setBrightness(BRIGHTNESS);
   for (int coord = 0; coord < 32; coord++) {
@@ -102,6 +109,10 @@ void Play::pawn_move(String x, String y) {
   for (int coord = 0; coord < 32; coord++) {
     matrix_game.setPixelColor(found_led(checkersMatrix[coord]), matrix_color[coord]);
   }
+  EEPROM.put(0, matrix_color);
+  boolean ok1 = EEPROM.commit();
+  DEBUG((ok1) ? "First commit OK" : "Commit failed");
+  DEBUG("\n");
   matrix_game.show();
 }
 
@@ -139,8 +150,10 @@ bool Play::check_kill(String x, String y) {
       for (int coord1 = 0; coord1 < 32; coord1++) {
         if (checkersMatrix[coord1] == x)
           if (matrix_color[coord] != matrix_color[coord1]) {
-            matrix_color[coord] = 0;
-            return true;
+            if (matrix_color[coord] != 0) {
+              matrix_color[coord] = 0;
+              return true;
+            }
           }
       }
     }
@@ -184,39 +197,28 @@ bool Play::check_step(String x, String y) {
   return false;
 }
 
+
 bool Play::step_ladies(String x, String y) {
-  for (int coord = 0; coord < 32; coord++)
-    if (checkersMatrix[coord] == x)
-      if (matrix_color[coord] == matrix_game.COLOR_LADIES_1 || matrix_color[coord] == matrix_game.COLOR_LADIES_2) {
-        int coord_ladies = x.charAt(1) - 49;
-        for (char c = x.charAt(0); c <= 'H'; c++) {
-          String new_coord = c + "" + coord_ladies++;
-          if (y == new_coord) return true;
+  for (int coord = 0; coord < 32; coord++) {
+    if (checkersMatrix[coord]  == y) {
+      if (matrix_color[coord] == 0) {
+        for (int coord1 = 0; coord1 < 32; coord1++) {
+          if (checkersMatrix[coord] == x) {
+            matrix_color[coord] = matrix_color[coord1];
+            checkersMatrix[coord] = 0;
+          }
         }
-        coord_ladies = x.charAt(1) - 47;
-        for (char c = x.charAt(0); c <= 'H'; c++) {
-          String new_coord = c + "" + coord_ladies--;
-          if (y == new_coord) return true;
-        }
-        coord_ladies = x.charAt(1) - 47;
-        for (char c = x.charAt(0); c >= 'A'; c--) {
-          String new_coord = c + "" + coord_ladies--;
-          if (y == new_coord) return true;
-        }
-        coord_ladies = x.charAt(1) - 49;
-        for (char c = x.charAt(0); c >= 'A'; c--) {
-          String new_coord = c + "" + coord_ladies++;
-          if (y == new_coord) return true;
-        }
-        
-      }
-  return false;
+      } else return false;
+    }
+  }
+  return true;
 }
 
 String ladies_matrix[] = { "A1", "B8",
                            "C1", "D8",
                            "E1", "F8",
-                           "G1", "H8" };
+                           "G1", "H8"
+                         };
 
 void Play::ladies(String x, String y) {
   for (int c = 0; c < 8; c++) {

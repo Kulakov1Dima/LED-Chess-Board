@@ -42,7 +42,7 @@ void setup() {
   print_version();
   enable_wifi_connection();
   enable_wifi_firmware();
-  webSocket.begin("85.237.35.92", 80, "/relikt");
+  webSocket.begin("192.168.0.110", 80, "/relikt");
   webSocket.onEvent(webSocketEvent);
   webSocket.setReconnectInterval(5000);
   game.start();
