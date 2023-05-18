@@ -13,12 +13,18 @@ int pix;
 Play::Play() {
 }
 
-
 String checkersMatrix[] = { "A1", "A3", "A5", "A7", "B8", "B6", "B4", "B2",
                             "C1", "C3", "C5", "C7", "D8", "D6", "D4", "D2",
                             "E1", "E3", "E5", "E7", "F8", "F6", "F4", "F2",
                             "G1", "G3", "G5", "G7", "H8", "H6", "H4", "H2"
                           };
+                     
+/*
+String checkersMatrix[] = { "H8", "H6", "H4", "H2", "G1", "G3", "G5", "G7",
+                            "F8", "F6", "F4", "F2", "E1", "E3", "E5", "E7",
+                            "D8", "D6", "D4", "D2", "C1", "C3", "C5", "C7",
+                            "B8", "B6", "B4", "B2", "A1", "A3", "A5", "A7"
+                          };*/
 
 uint32_t matrix_color[] = { matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1,
                             matrix_game.COLOR_PLAYER_1, matrix_game.COLOR_PLAYER_1, 0, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, matrix_game.COLOR_PLAYER_2, 0, matrix_game.COLOR_PLAYER_1,

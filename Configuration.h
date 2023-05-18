@@ -19,7 +19,12 @@
 
 //#define LED_CHESS_BOARD_VERSION                                           "2021011"                   // old desk 2019
 
-#define DESK_NAME                                                         "mockva"
+//#define DESK_NAME                                                         "mockva"
+//#define DESK_NAME                                                         "orel"
+//#define DESK_NAME                                                         "anapa"
+//#define DESK_NAME                                                         "mogayck"
+//#define DESK_NAME                                                         "pckov"
+#define DESK_NAME                                                         "cevactopol"
 
 
 
@@ -77,9 +82,8 @@
 
 #define DELAY_SCREENSAVER                                                  3000
 
-#define COLOR_PLAYER_1                                                     Color(255, 255, 255)
-#define COLOR_PLAYER_2                                                     Color(255, 0, 0)
+#define COLOR_PLAYER_1                                                     Color(123, 0, 255)
+#define COLOR_PLAYER_2                                                     Color(255, 183, 0)
 
-#define COLOR_LADIES_1                                                     Color(0, 0, 255)
-#define COLOR_LADIES_2                                                     Color(255, 200, 0)
-
+#define COLOR_LADIES_1                                                     Color(213, 0, 255)
+#define COLOR_LADIES_2                                                     Color(0, 255, 4)
